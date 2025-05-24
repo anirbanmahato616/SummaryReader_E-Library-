@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Results - E-Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Search Results</h1>
+
+    <div class="d-flex justify-content-between mb-4">
+       
+
+        <form action="/search" method="get" class="d-flex" role="search">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search books..." aria-label="Search Again">
+            <button class="btn btn-outline-primary" type="submit">Search Again</button>
+        </form>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Cover</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="book : ${books}">
+                <td>
+                    <img th:src="@{'/images/' + ${book.coverImage}}" alt="Cover" width="60" height="80"
+                         style="object-fit: cover;">
+                </td>
+                <td th:text="${book.title}">Sample Title</td>
+                <td th:text="${book.author}">Sample Author</td>
+                <td th:text="${book.isbn}">Sample ISBN</td>
+                
+            </tr>
+            <tr th:if="${#lists.isEmpty(books)}">
+                <td colspan="5" class="text-center">No books found for your search.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
